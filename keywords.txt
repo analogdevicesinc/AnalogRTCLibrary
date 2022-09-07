@@ -1,0 +1,502 @@
+
+AnalogRTCLib                            KEYWORD1
+
+################################################
+#
+#  					MAX3133X
+#
+################################################
+MAX31331                                KEYWORD1
+MAX31334                                KEYWORD1
+hour_format_t                           KEYWORD1
+alarm_period_t                          KEYWORD1
+alarm_no_t                              KEYWORD1
+data_ret_t                              KEYWORD1
+i2c_timeout_t                           KEYWORD1
+en_osc_t                                KEYWORD1
+dse_t                                   KEYWORD1
+ddb_t                                   KEYWORD1
+enclko_t                                KEYWORD1
+a1ac_t                                  KEYWORD1
+dip_t                                   KEYWORD1
+clko_hz_t                               KEYWORD1
+timer_freq_t                            KEYWORD1
+power_mgmt_supply_t                     KEYWORD1
+trickle_charger_ohm_t                   KEYWORD1
+ts_num_t                                KEYWORD1
+ts_trigger_t                            KEYWORD1
+timestamp_t                             KEYWORD1
+reg_addr_t                              KEYWORD1
+rtc_config_t                            KEYWORD1
+wsto_t                                  KEYWORD1
+
+rtc_config                              KEYWORD2
+get_rtc_config                          KEYWORD2
+read_register                           KEYWORD2
+write_register                          KEYWORD2
+begin                                   KEYWORD2
+get_time                                KEYWORD2
+set_time                                KEYWORD2
+set_alarm                               KEYWORD2
+get_alarm                               KEYWORD2
+get_status_reg                          KEYWORD2
+get_interrupt_reg                       KEYWORD2
+interrupt_enable                        KEYWORD2
+interrupt_disable                       KEYWORD2
+sw_reset_assert                         KEYWORD2
+sw_reset_release                        KEYWORD2
+sw_reset                                KEYWORD2
+set_alarm1_auto_clear                   KEYWORD2
+set_din_polarity                        KEYWORD2
+data_retention_mode_enter               KEYWORD2
+data_retention_mode_exit                KEYWORD2
+i2c_timeout_enable                      KEYWORD2
+i2c_timeout_disable                     KEYWORD2
+oscillator_enable                       KEYWORD2
+oscillator_disable                      KEYWORD2
+clkout_enable                           KEYWORD2
+clkout_disable                          KEYWORD2
+set_clko_freq                           KEYWORD2
+get_clko_freq                           KEYWORD2
+timestamp_function_enable               KEYWORD2
+timestamp_function_disable              KEYWORD2
+timestamp_registers_reset               KEYWORD2
+timestamp_overwrite_enable              KEYWORD2
+timestamp_overwrite_disable             KEYWORD2
+timestamp_record_enable                 KEYWORD2
+timestamp_record_disable                KEYWORD2
+timer_start                             KEYWORD2
+timer_pause                             KEYWORD2
+timer_continue                          KEYWORD2
+timer_stop                              KEYWORD2
+timer_init                              KEYWORD2
+timer_get                               KEYWORD2
+battery_voltage_detector_enable         KEYWORD2
+battery_voltage_detector_disable        KEYWORD2
+supply_select                           KEYWORD2
+trickle_charger_enable                  KEYWORD2
+trickle_charger_disable                 KEYWORD2
+get_timestamp                           KEYWORD2
+offset_configuration                    KEYWORD2
+oscillator_flag_enable                  KEYWORD2
+oscillator_flag_disable                 KEYWORD2
+get_sleep_state                         KEYWORD2
+din_sleep_entry_enable                  KEYWORD2
+din_sleep_entry_disable                 KEYWORD2
+din_pin_debounce_enable                 KEYWORD2
+din_pin_debounce_disable                KEYWORD2
+sleep_enter                             KEYWORD2
+sleep_exit                              KEYWORD2
+set_wait_state_timeout                  KEYWORD2
+get_wait_state_timeout                  KEYWORD2
+wakeup_enable                           KEYWORD2
+wakeup_disable                          KEYWORD2
+
+MAX3133X_NO_ERR                         LITERAL1
+MAX3133X_NULL_VALUE_ERR                 LITERAL1
+MAX3133X_READ_REG_ERR                   LITERAL1
+MAX3133X_WRITE_REG_ERR                  LITERAL1
+MAX3133X_INVALID_TIME_ERR               LITERAL1
+MAX3133X_INVALID_DATE_ERR               LITERAL1
+MAX3133X_INVALID_MASK_ERR               LITERAL1
+MAX3133X_INVALID_ALARM_PERIOD_ERR       LITERAL1
+MAX3133X_ALARM_ONETIME_NOT_SUPP_ERR     LITERAL1
+MAX3133X_ALARM_YEARLY_NOT_SUPP_ERR      LITERAL1
+MAX3133X_ALARM_EVERYMINUTE_NOT_SUPP_ERR LITERAL1
+MAX3133X_ALARM_EVERYSECOND_NOT_SUPP_ERR LITERAL1
+MAX3133X_I2C_BUFF_ERR                   LITERAL1
+MAX3133X_I2C_END_TRANS_ERR              LITERAL1
+ALARM_PERIOD_EVERYSECOND                LITERAL1
+ALARM_PERIOD_EVERYMINUTE                LITERAL1
+ALARM_PERIOD_HOURLY                     LITERAL1
+ALARM_PERIOD_DAILY                      LITERAL1
+ALARM_PERIOD_WEEKLY                     LITERAL1
+ALARM_PERIOD_MONTHLY                    LITERAL1
+ALARM_PERIOD_YEARLY                     LITERAL1
+ALARM_PERIOD_ONETIME                    LITERAL1
+ALARM1                                  LITERAL1
+ALARM2                                  LITERAL1
+HOUR24                                  LITERAL1
+HOUR12                                  LITERAL1
+A1IE                                    LITERAL1
+A2IE                                    LITERAL1
+TIE                                     LITERAL1
+DIE                                     LITERAL1
+VBATLOWIE                               LITERAL1
+PFAILE                                  LITERAL1
+DOSF                                    LITERAL1
+INT_ALL                                 LITERAL1
+NUM_OF_INT                              LITERAL1
+NORMAL_OP_MODE                          LITERAL1
+DATA_RETENTION_MODE                     LITERAL1
+DISABLE_I2C_TIMEOUT                     LITERAL1
+ENABLE_I2C_TIMEOUT                      LITERAL1
+DISABLE_OSCILLATOR                      LITERAL1
+ENABLE_OSCILLATOR                       LITERAL1
+DIN_SLEEP_ENTRY_DISABLE                 LITERAL1
+DIN_SLEEP_ENTRY_ENABLE                  LITERAL1
+DIN_DEBOUNCE_DISABLE                    LITERAL1
+DIN_DEBOUNCE_ENABLE                     LITERAL1
+INTERRUPT                               LITERAL1
+CLOCK_OUTPUT                            LITERAL1
+BY_READING                              LITERAL1
+AFTER_10MS                              LITERAL1
+AFTER_500MS                             LITERAL1
+AFTER_5s                                LITERAL1
+FALLING_EDGE                            LITERAL1
+RISING_EDGE                             LITERAL1
+CLKOUT_1HZ                              LITERAL1
+CLKOUT_64HZ                             LITERAL1
+CLKOUT_1024KHZ                          LITERAL1
+CLKOUT_32KHZ_UNCOMP                     LITERAL1
+TSVLOW                                  LITERAL1
+TSPWM                                   LITERAL1
+TSDIN                                   LITERAL1
+TIMER_FREQ_1024HZ                       LITERAL1
+TIMER_FREQ_256HZ                        LITERAL1
+TIMER_FREQ_64HZ                         LITERAL1
+TIMER_FREQ_16HZ                         LITERAL1
+POW_MGMT_SUPPLY_SEL_AUTO                LITERAL1
+POW_MGMT_SUPPLY_SEL_VCC                 LITERAL1
+POW_MGMT_SUPPLY_SEL_VBAT                LITERAL1
+TRICKLE_CHARGER_3K                      LITERAL1
+TRICKLE_CHARGER_3K_2                    LITERAL1
+TRICKLE_CHARGER_6K                      LITERAL1
+TRICKLE_CHARGER_11K                     LITERAL1
+TS0                                     LITERAL1
+TS1                                     LITERAL1
+TS2                                     LITERAL1
+TS3                                     LITERAL1
+NUM_OF_TS                               LITERAL1
+NOT_TRIGGERED                           LITERAL1
+DINF                                    LITERAL1
+VCCF                                    LITERAL1
+VBATF                                   LITERAL1
+VLOWF                                   LITERAL1
+NUM_OF_TRIG                             LITERAL1
+WSTO_0MS                                LITERAL1
+WSTO_8MS                                LITERAL1
+WSTO_16MS                               LITERAL1
+WSTO_24MS                               LITERAL1
+WSTO_32MS                               LITERAL1
+WSTO_40MS                               LITERAL1
+WSTO_48MS                               LITERAL1
+WSTO_56MS                               LITERAL1
+A1WE                                    LITERAL1
+A2WE                                    LITERAL1
+TWE                                     LITERAL1
+DWE                                     LITERAL1
+
+
+################################################
+#
+#  					MAX31341
+#
+################################################
+MAX31341	                    KEYWORD1
+power_mgmt_mode_t               KEYWORD1
+comp_thresh_t                   KEYWORD1
+power_mgmt_supply_t             KEYWORD1
+trickle_charger_path_t          KEYWORD1
+timer_freq_t                    KEYWORD1
+clkin_freq_t                    KEYWORD1
+sqw_out_freq_t                  KEYWORD1
+intr_id_t                       KEYWORD1    
+alarm_no_t                      KEYWORD1
+alarm_period_t                  KEYWORD1
+config_inta_clkin_pin_t         KEYWORD1
+config_intb_clkout_pin_t        KEYWORD1
+sync_delay_t                    KEYWORD1
+reg_status_t                    KEYWORD1    
+reg_cfg_t                       KEYWORD1    
+
+
+begin	                        KEYWORD2
+get_version                     KEYWORD2
+get_status                      KEYWORD2
+get_configuration               KEYWORD2
+set_configuration               KEYWORD2
+get_time                        KEYWORD2
+set_time                        KEYWORD2
+get_alarm                       KEYWORD2
+set_alarm                       KEYWORD2
+set_power_mgmt_mode             KEYWORD2
+comparator_threshold_level      KEYWORD2
+supply_select                   KEYWORD2
+supply_select                   KEYWORD2
+trickle_charger_enable          KEYWORD2
+trickle_charger_disable         KEYWORD2
+set_square_wave_frequency       KEYWORD2
+set_clkin_frequency             KEYWORD2
+configure_intb_clkout_pin       KEYWORD2
+configure_inta_clkin_pin        KEYWORD2
+timer_init                      KEYWORD2
+timer_get                       KEYWORD2
+timer_start                     KEYWORD2
+timer_pause                     KEYWORD2
+timer_continue                  KEYWORD2
+timer_stop                      KEYWORD2
+set_data_retention_mode         KEYWORD2
+irq_enable                      KEYWORD2
+irq_disable                     KEYWORD2
+irq_clear_flag                  KEYWORD2
+sw_reset_assert                 KEYWORD2
+sw_reset_release                KEYWORD2
+rtc_start                       KEYWORD2
+rtc_stop                        KEYWORD2
+nvram_size                      KEYWORD2
+nvram_write                     KEYWORD2
+nvram_read                      KEYWORD2
+read_register                   KEYWORD2
+write_register                  KEYWORD2
+
+
+POW_MGMT_MODE_COMPARATOR        LITERAL1
+POW_MGMT_MODE_POWER_MANAGEMENT  LITERAL1
+COMP_THRESH_1V3                 LITERAL1
+COMP_THRESH_1V7                 LITERAL1
+COMP_THRESH_2V0                 LITERAL1
+COMP_THRESH_2V2                 LITERAL1
+
+POW_MGMT_SUPPLY_SEL_AUTO        LITERAL1
+POW_MGMT_SUPPLY_SEL_VCC         LITERAL1
+POW_MGMT_SUPPLY_SEL_AIN         LITERAL1
+
+TRICKLE_CHARGER_NO_CONNECTION   LITERAL1
+TRICKLE_CHARGER_3K_S            LITERAL1
+TRICKLE_CHARGER_6K_S            LITERAL1
+TRICKLE_CHARGER_11K_S           LITERAL1
+TRICKLE_CHARGER_3K_S_2          LITERAL1
+TRICKLE_CHARGER_6K_S_2          LITERAL1
+TRICKLE_CHARGER_11K_S_2         LITERAL1
+
+TIMER_FREQ_1024HZ               LITERAL1
+TIMER_FREQ_256HZ                LITERAL1
+TIMER_FREQ_64HZ                 LITERAL1
+TIMER_FREQ_16HZ	                LITERAL1
+
+CLKIN_FREQ_1HZ                  LITERAL1
+CLKIN_FREQ_50HZ                 LITERAL1
+CLKIN_FREQ_60HZ                 LITERAL1
+CLKIN_FREQ_32768HZ              LITERAL1
+
+SQW_OUT_FREQ_1HZ                LITERAL1
+SQW_OUT_FREQ_4KHZ	            LITERAL1
+SQW_OUT_FREQ_8KHZ	            LITERAL1
+SQW_OUT_FREQ_32HZ               LITERAL1
+
+INTR_ID_ALARM1                  LITERAL1
+INTR_ID_ALARM2                  LITERAL1
+INTR_ID_TIMER                   LITERAL1
+INTR_ID_RESERVED                LITERAL1
+INTR_ID_EXTERNAL                LITERAL1
+INTR_ID_ANALOG                  LITERAL1
+INTR_ID_OSF                     LITERAL1
+INTR_ID_ALL 	                LITERAL1
+
+ALARM1                          LITERAL1
+ALARM2                          LITERAL1
+
+ALARM_PERIOD_EVERYSECOND        LITERAL1
+ALARM_PERIOD_EVERYMINUTE        LITERAL1
+ALARM_PERIOD_HOURLY             LITERAL1
+ALARM_PERIOD_DAILY              LITERAL1
+ALARM_PERIOD_WEEKLY             LITERAL1
+ALARM_PERIOD_MONTHLY            LITERAL1
+
+CONFIGURE_PIN_AS_INTA           LITERAL1
+CONFIGURE_PIN_AS_CLKIN          LITERAL1
+
+CONFIGURE_PIN_AS_CLKOUT         LITERAL1
+CONFIGURE_PIN_AS_INTB           LITERAL1
+
+SYNC_DLY_LESS_THAN_1SEC         LITERAL1
+SYNC_DLY_LESS_THAN_100MS        LITERAL1
+SYNC_DLY_LESS_THAN_10MS         LITERAL1
+
+
+################################################
+#
+#  					MAX31343
+#
+################################################
+MAX31343	                    KEYWORD1
+clko_freq_t                     KEYWORD1
+comp_thresh_t                   KEYWORD1
+power_mgmt_supply_t             KEYWORD1
+trickle_charger_ohm_t           KEYWORD1
+timer_freq_t                    KEYWORD1
+intr_id_t                       KEYWORD1    
+alarm_no_t                      KEYWORD1
+alarm_period_t                  KEYWORD1
+config_intb_clkout_pin_t        KEYWORD1
+sqw_out_freq_t                  KEYWORD1
+ttsint_t                        KEYWORD1
+reg_status_t                    KEYWORD1    
+reg_cfg_t                       KEYWORD1    
+
+
+begin	                        KEYWORD2
+get_status                      KEYWORD2
+get_configuration               KEYWORD2
+set_configuration               KEYWORD2
+get_time                        KEYWORD2
+set_time                        KEYWORD2
+get_alarm                       KEYWORD2
+set_alarm                       KEYWORD2
+powerfail_threshold_level       KEYWORD2
+supply_select                   KEYWORD2
+trickle_charger_enable          KEYWORD2
+trickle_charger_disable         KEYWORD2
+set_square_wave_frequency       KEYWORD2
+clko_enable                     KEYWORD2
+clko_disable                    KEYWORD2
+timer_init                      KEYWORD2
+timer_get                       KEYWORD2
+timer_start                     KEYWORD2
+timer_pause                     KEYWORD2
+timer_continue                  KEYWORD2
+timer_stop                      KEYWORD2
+set_data_retention_mode         KEYWORD2
+start_temp_conversion           KEYWORD2
+is_temp_ready                   KEYWORD2
+get_temp                        KEYWORD2
+irq_enable                      KEYWORD2
+irq_disable                     KEYWORD2
+irq_clear_flag                  KEYWORD2
+sw_reset_assert                 KEYWORD2
+sw_reset_release                KEYWORD2
+rtc_start                       KEYWORD2
+rtc_stop                        KEYWORD2
+nvram_size                      KEYWORD2
+nvram_write                     KEYWORD2
+nvram_read                      KEYWORD2
+read_register                   KEYWORD2
+write_register                  KEYWORD2
+
+
+CLKO_FREQ_1HZ                   LITERAL1
+CLKO_FREQ_2HZ		            LITERAL1
+CLKO_FREQ_4HZ		            LITERAL1
+CLKO_FREQ_8HZ		            LITERAL1
+CLKO_FREQ_16HZ		            LITERAL1
+CLKO_FREQ_32HZ	    	        LITERAL1
+CLKO_FREQ_64HZ	                LITERAL1
+CLKO_FREQ_128HZ	                LITERAL1
+CLKO_FREQ_32000HZ   	        LITERAL1
+                                
+SQW_OUT_FREQ_1HZ                LITERAL1
+SQW_OUT_FREQ_2HZ	            LITERAL1
+SQW_OUT_FREQ_4HZ	            LITERAL1
+SQW_OUT_FREQ_8HZ	            LITERAL1
+SQW_OUT_FREQ_16HZ               LITERAL1
+SQW_OUT_FREQ_32HZ               LITERAL1
+                                
+COMP_THRESH_1V85                LITERAL1    
+COMP_THRESH_2V15                LITERAL1    
+COMP_THRESH_2V40                LITERAL1    
+                                
+POW_MGMT_SUPPLY_SEL_AUTO	    LITERAL1
+POW_MGMT_SUPPLY_SEL_VCC	        LITERAL1
+POW_MGMT_SUPPLY_SEL_VBACK	    LITERAL1
+
+TRICKLE_CHARGER_3K_S            LITERAL1
+TRICKLE_CHARGER_3K_2_S          LITERAL1
+TRICKLE_CHARGER_6K_S	        LITERAL1
+TRICKLE_CHARGER_11K_S           LITERAL1
+TRICKLE_CHARGER_3K_D_S          LITERAL1
+TRICKLE_CHARGER_3K_2_D_S        LITERAL1
+TRICKLE_CHARGER_6K_D_S          LITERAL1
+TRICKLE_CHARGER_11K_D_S         LITERAL1
+TRICKLE_CHARGER_NO_CONNECTION   LITERAL1
+
+TIMER_FREQ_1024HZ               LITERAL1
+TIMER_FREQ_256HZ                LITERAL1
+TIMER_FREQ_64HZ                 LITERAL1
+TIMER_FREQ_16HZ	                LITERAL1
+
+INTR_ID_ALARM1                  LITERAL1
+INTR_ID_ALARM2                  LITERAL1
+INTR_ID_TIMER                   LITERAL1
+INTR_ID_TEMP                    LITERAL1
+INTR_ID_PFAIL                   LITERAL1
+INTR_ID_DOSF                    LITERAL1
+INTR_ID_ALL	                    LITERAL1
+
+ALARM1                          LITERAL1
+ALARM2                          LITERAL1
+  
+ALARM_PERIOD_EVERYSECOND        LITERAL1
+ALARM_PERIOD_EVERYMINUTE        LITERAL1
+ALARM_PERIOD_HOURLY             LITERAL1
+ALARM_PERIOD_DAILY              LITERAL1
+ALARM_PERIOD_WEEKLY             LITERAL1
+ALARM_PERIOD_MONTHLY            LITERAL1
+ALARM_PERIOD_YEARLY             LITERAL1
+ALARM_PERIOD_ONETIME            LITERAL1
+                                
+CONFIGURE_PIN_AS_CLKOUT         LITERAL1
+CONFIGURE_PIN_AS_INTB           LITERAL1
+                                
+TTS_INTERNAL_1SEC               LITERAL1
+TTS_INTERNAL_2SEC               LITERAL1
+TTS_INTERNAL_4SEC               LITERAL1
+TTS_INTERNAL_8SEC               LITERAL1
+TTS_INTERNAL_16SEC              LITERAL1
+TTS_INTERNAL_32SEC              LITERAL1
+TTS_INTERNAL_64SEC              LITERAL1
+TTS_INTERNAL_128SEC             LITERAL1
+
+
+################################################
+#
+#  					MAX31328
+#
+################################################
+MAX31328	                KEYWORD1
+intr_id_t                   KEYWORD1    
+alarm_no_t                  KEYWORD1
+alarm_period_t              KEYWORD1    
+sqw_out_freq_t              KEYWORD1    
+reg_status_t                KEYWORD1    
+reg_cfg_t                   KEYWORD1    
+
+
+begin	                    KEYWORD2
+get_status                  KEYWORD2
+get_configuration           KEYWORD2
+set_configuration           KEYWORD2
+get_time                    KEYWORD2
+set_time                    KEYWORD2
+get_alarm                   KEYWORD2
+set_alarm                   KEYWORD2
+irq_enable                  KEYWORD2
+irq_disable                 KEYWORD2
+irq_clear_flag              KEYWORD2
+set_square_wave_frequency   KEYWORD2
+start_temp_conversion       KEYWORD2
+is_temp_ready               KEYWORD2
+get_temp                    KEYWORD2
+read_register               KEYWORD2
+write_register              KEYWORD2
+                            
+                            
+INTR_ID_ALARM1              LITERAL1
+INTR_ID_ALARM2              LITERAL1
+INTR_ID_ALL                 LITERAL1
+                            
+ALARM1                      LITERAL1
+ALARM2                      LITERAL1
+                            
+ALARM_PERIOD_EVERYSECOND    LITERAL1
+ALARM_PERIOD_EVERYMINUTE    LITERAL1
+ALARM_PERIOD_HOURLY         LITERAL1
+ALARM_PERIOD_DAILY          LITERAL1
+ALARM_PERIOD_WEEKLY         LITERAL1
+ALARM_PERIOD_MONTHLY        LITERAL1
+                            
+SQW_OUT_FREQ_1HZ            LITERAL1
+SQW_OUT_FREQ_4KHZ           LITERAL1
+SQW_OUT_FREQ_8KHZ           LITERAL1
+SQW_OUT_FREQ_32KHZ          LITERAL1
+
