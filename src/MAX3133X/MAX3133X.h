@@ -643,12 +643,11 @@ public:
     * @brief Timestamp Triggers
     */
     typedef enum {
-        NOT_TRIGGERED,  /**< Not Triggered */
-        DINF,           /**< triggered by DIN transition */
-        VCCF,           /**< triggered by VBAT -> VCC switch */
-        VBATF,          /**< triggered by VCC -> VBAT switch */
-        VLOWF,          /**< triggered by VLOW detection */
-        NUM_OF_TRIG     /**< Number of Triggers */
+        NOT_TRIGGERED	= 0,  /**< Not Triggered */
+        DINF			= 1,  /**< triggered by DIN transition */
+        VCCF			= 2,  /**< triggered by VBAT -> VCC switch */
+        VBATF			= 4,  /**< triggered by VCC -> VBAT switch */
+        VLOWF			= 8,  /**< triggered by VLOW detection */
     } ts_trigger_t;
 
     typedef struct{
