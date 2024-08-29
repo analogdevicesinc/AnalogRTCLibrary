@@ -339,9 +339,19 @@ int MAX3133X::get_status_reg(max3133x_status_reg_t * status_reg)
     return read_register(reg_addr->status_reg_addr, &status_reg->raw, 1);
 }
 
+int MAX31335::get_status2_reg(max31335_status2_reg_t * status_reg)
+{
+    return read_register(reg_addr.status2_reg_addr, &status_reg->raw, 1);
+}
+
 int MAX3133X::get_interrupt_reg(max3133x_int_en_reg_t * int_en_reg)
 {
     return read_register(reg_addr->int_en_reg_addr, &int_en_reg->raw, 1);
+}
+
+int MAX31335::get_interrupt2_reg(max31335_int_en2_reg_t * int_en_reg)
+{
+    return read_register(reg_addr.int_en2_reg_addr, &int_en_reg->raw, 1);
 }
 
 int MAX3133X::interrupt_enable(uint8_t mask)
@@ -368,6 +378,32 @@ int MAX3133X::interrupt_disable(uint8_t mask)
 
     int_en_reg.raw &= ~mask;
     return write_register(reg_addr->int_en_reg_addr, &int_en_reg.raw, 1);
+}
+
+int MAX31335::interrupt2_enable(uint8_t mask)
+{
+    int ret;
+    max31335_int_en2_reg_t int_en_reg;
+
+    ret = read_register(reg_addr.int_en2_reg_addr, &int_en_reg.raw, 1);
+    if (ret != MAX3133X_NO_ERR)
+        return ret;
+
+    int_en_reg.raw |= mask;
+    return write_register(reg_addr.int_en2_reg_addr, &int_en_reg.raw, 1);
+}
+
+int MAX31335::interrupt2_disable(uint8_t mask)
+{
+    int ret;
+    max31335_int_en2_reg_t int_en_reg;
+
+    ret = read_register(reg_addr.int_en2_reg_addr, &int_en_reg.raw, 1);
+    if (ret != MAX3133X_NO_ERR)
+        return ret;
+
+    int_en_reg.raw &= ~mask;
+    return write_register(reg_addr.int_en2_reg_addr, &int_en_reg.raw, 1);
 }
 
 int MAX3133X::sw_reset_assert()
@@ -441,6 +477,28 @@ int MAX31334::rtc_config(rtc_config_t *max31334_config)
     return write_register(reg_addr.rtc_config2_reg_addr, &rtc_config2_reg.raw, 1);
 }
 
+int MAX31335::rtc_config(rtc_config_t *max31335_config)
+{
+    int ret;
+    max31335_rtc_config1_reg_t rtc_config1_reg;
+    max31335_rtc_config2_reg_t rtc_config2_reg;
+    rtc_config1_reg.bits.en_io          = max31335_config->en_io;
+    rtc_config1_reg.bits.a1ac           = max31335_config->a1ac;
+    rtc_config1_reg.bits.dip            = max31335_config->dip;
+    rtc_config1_reg.bits.data_ret       = max31335_config->data_ret;
+    rtc_config1_reg.bits.i2c_timeout    = max31335_config->i2c_timeout;
+    rtc_config1_reg.bits.en_osc         = max31335_config->en_osc;
+
+    ret =  write_register(reg_addr.rtc_config1_reg_addr, &rtc_config1_reg.raw, 1);
+    if (ret != MAX3133X_NO_ERR)
+        return ret;
+
+    rtc_config2_reg.bits.clko_hz    = max31335_config->clko_hz;
+    rtc_config2_reg.bits.enclko     = max31335_config->enclko;
+
+    return write_register(reg_addr.rtc_config2_reg_addr, &rtc_config2_reg.raw, 1);
+}
+
 int MAX31331::get_rtc_config(rtc_config_t *max31331_config)
 {
     int ret;
@@ -490,6 +548,32 @@ int MAX31334::get_rtc_config(rtc_config_t *max31334_config)
     max31334_config->ddb            = (ddb_t)rtc_config2_reg.bits.ddb;
     max31334_config->dse            = (dse_t)rtc_config2_reg.bits.dse;
     max31334_config->enclko         = (enclko_t)rtc_config2_reg.bits.enclko;
+
+    return MAX3133X_NO_ERR;
+}
+
+int MAX31335::get_rtc_config(rtc_config_t *max31335_config)
+{
+    int ret;
+    max31335_rtc_config1_reg_t rtc_config1_reg;
+    max31335_rtc_config2_reg_t rtc_config2_reg;
+
+    ret =  read_register(reg_addr.rtc_config1_reg_addr, &rtc_config1_reg.raw, 1);
+    if (ret != MAX3133X_NO_ERR)
+        return ret;
+    max31335_config->en_io          = (en_io_t)rtc_config1_reg.bits.en_io;
+    max31335_config->a1ac           = (a1ac_t)rtc_config1_reg.bits.a1ac;
+    max31335_config->dip            = (dip_t)rtc_config1_reg.bits.dip;
+    max31335_config->data_ret       = (data_ret_t)rtc_config1_reg.bits.data_ret;
+    max31335_config->i2c_timeout    = (i2c_timeout_t)rtc_config1_reg.bits.i2c_timeout;
+    max31335_config->en_osc         = (en_osc_t)rtc_config1_reg.bits.en_osc;
+
+    ret = read_register(reg_addr.rtc_config2_reg_addr, &rtc_config2_reg.raw, 1);
+    if (ret != MAX3133X_NO_ERR)
+        return ret;
+
+    max31335_config->clko_hz        = (clko_hz_t)rtc_config2_reg.bits.clko_hz;
+    max31335_config->enclko         = (enclko_t)rtc_config2_reg.bits.enclko;
 
     return MAX3133X_NO_ERR;
 }
@@ -756,6 +840,27 @@ int MAX31334::timer_init(uint16_t timer_init, bool repeat, timer_freq_t freq)
     return write_register(reg_addr.timer_init2_reg_addr, (uint8_t *)&timer_init, 2);
 }
 
+int MAX31335::timer_init(uint16_t timer_init, bool repeat, timer_freq_t freq)
+{
+    int ret;
+    max3133x_timer_config_reg_t timer_config_reg;
+
+    ret = read_register(reg_addr.timer_config_reg_addr, &timer_config_reg.raw, 1);
+    if (ret != MAX3133X_NO_ERR)
+        return ret;
+
+    timer_config_reg.bits.te = 0;                   /* timer is reset */
+    timer_config_reg.bits.tpause = 1;               /* timer is paused */
+    timer_config_reg.bits.trpt = repeat ? 1 : 0;    /* Timer repeat mode */
+    timer_config_reg.bits.tfs = freq;               /* Timer frequency */
+
+    ret = write_register(reg_addr.timer_config_reg_addr, &timer_config_reg.raw, 1);
+    if (ret != MAX3133X_NO_ERR)
+        return ret;
+
+    return write_register(reg_addr.timer_init_reg_addr, (uint8_t *)&timer_init, 1);
+}
+
 int MAX31331::timer_get()
 {
     int ret;
@@ -778,6 +883,18 @@ int MAX31334::timer_get()
         return ret;
 
     return SWAPBYTES(timer_count);
+}
+
+int MAX31335::timer_get()
+{
+    int ret;
+    uint16_t timer_count;
+
+    ret = read_register(reg_addr.timer_count_reg_addr, (uint8_t *)&timer_count, 1);
+    if (ret != MAX3133X_NO_ERR)
+        return ret;
+
+    return timer_count;
 }
 
 int MAX3133X::timer_start()
@@ -1244,9 +1361,94 @@ int MAX3133X::get_alarm(alarm_no_t alarm_no, struct tm *alarm_time,
     return MAX3133X_NO_ERR;
 }
 
+const MAX3133X::reg_addr_t MAX31335::reg_addr = {
+/*RTC REG*/
+MAX31335_STATUS,
+MAX31335_INT_EN,
+MAX31335_STATUS2,
+MAX31335_INT_EN2,
+MAX31335_RTC_RESET,
+MAX31335_RTC_CONFIG1,
+MAX31335_RTC_CONFIG2,
+MAX31335_TIMESTAMP_CONFIG,
+MAX31335_TIMER_CONFIG,
+REG_NOT_AVAILABLE,
+MAX31335_SECONDS_1_128,
+MAX31335_SECONDS,
+MAX31335_MINUTES,
+MAX31335_HOURS,
+MAX31335_DAY,
+MAX31335_DATE,
+MAX31335_MONTH,
+MAX31335_YEAR,
+MAX31335_ALM1_SEC,
+MAX31335_ALM1_MIN,
+MAX31335_ALM1_HRS,
+MAX31335_ALM1_DAY_DATE,
+MAX31335_ALM1_MON,
+MAX31335_ALM1_YEAR,
+MAX31335_ALM2_MIN,
+MAX31335_ALM2_HRS,
+MAX31335_ALM2_DAY_DATE,
+MAX31335_TIMER_COUNT,
+REG_NOT_AVAILABLE,
+REG_NOT_AVAILABLE,
+MAX31335_TIMER_INIT,
+REG_NOT_AVAILABLE,
+REG_NOT_AVAILABLE,
+MAX31335_PWR_MGMT,
+MAX31335_TRICKLE_REG,
+MAX31335_AGING_OFFSET,
+REG_NOT_AVAILABLE,
+REG_NOT_AVAILABLE,
+/* TEMP_REG */
+MAX31335_TS_CONFIG,
+MAX31335_TEMP_ALM_HIGH_MSB,
+MAX31335_TEMP_ALM_HIGH_LSB,
+MAX31335_TEMP_ALM_LOW_MSB,
+MAX31335_TEMP_ALM_LOW_LSB,
+MAX31335_TEMP_DATA_MSB,
+MAX31335_TEMP_DATA_LSB,
+/*TS_RAM_REG*/
+MAX31335_TS0_SEC_1_128,
+MAX31335_TS0_SEC,
+MAX31335_TS0_MIN,
+MAX31335_TS0_HOUR,
+MAX31335_TS0_DATE,
+MAX31335_TS0_MONTH,
+MAX31335_TS0_YEAR,
+MAX31335_TS0_FLAGS,
+MAX31335_TS1_SEC_1_128,
+MAX31335_TS1_SEC,
+MAX31335_TS1_MIN,
+MAX31335_TS1_HOUR,
+MAX31335_TS1_DATE,
+MAX31335_TS1_MONTH,
+MAX31335_TS1_YEAR,
+MAX31335_TS1_FLAGS,
+MAX31335_TS2_SEC_1_128,
+MAX31335_TS2_SEC,
+MAX31335_TS2_MIN,
+MAX31335_TS2_HOUR,
+MAX31335_TS2_DATE,
+MAX31335_TS2_MONTH,
+MAX31335_TS2_YEAR,
+MAX31335_TS2_FLAGS,
+MAX31335_TS3_SEC_1_128,
+MAX31335_TS3_SEC,
+MAX31335_TS3_MIN,
+MAX31335_TS3_HOUR,
+MAX31335_TS3_DATE,
+MAX31335_TS3_MONTH,
+MAX31335_TS3_YEAR,
+MAX31335_TS3_FLAGS,
+};
+
 const MAX3133X::reg_addr_t MAX31334::reg_addr = {
 MAX31334_STATUS,
 MAX31334_INT_EN,
+REG_NOT_AVAILABLE,
+REG_NOT_AVAILABLE,
 MAX31334_RTC_RESET,
 MAX31334_RTC_CONFIG1,
 MAX31334_RTC_CONFIG2,
@@ -1278,8 +1480,16 @@ MAX31334_TIMER_INIT2,
 MAX31334_TIMER_INIT1,
 MAX31334_PWR_MGMT,
 MAX31334_TRICKLE_REG,
+REG_NOT_AVAILABLE,
 MAX31334_OFFSET_HIGH,
 MAX31334_OFFSET_LOW,
+REG_NOT_AVAILABLE,
+REG_NOT_AVAILABLE,
+REG_NOT_AVAILABLE,
+REG_NOT_AVAILABLE,
+REG_NOT_AVAILABLE,
+REG_NOT_AVAILABLE,
+REG_NOT_AVAILABLE,
 MAX31334_TS0_SEC_1_128,
 MAX31334_TS0_SEC,
 MAX31334_TS0_MIN,
@@ -1317,6 +1527,8 @@ MAX31334_TS3_FLAGS,
 const MAX3133X::reg_addr_t MAX31331::reg_addr = {
 MAX31331_STATUS,
 MAX31331_INT_EN,
+REG_NOT_AVAILABLE,
+REG_NOT_AVAILABLE,
 MAX31331_RTC_RESET,
 MAX31331_RTC_CONFIG1,
 MAX31331_RTC_CONFIG2,
@@ -1348,8 +1560,16 @@ REG_NOT_AVAILABLE,
 REG_NOT_AVAILABLE,
 MAX31331_PWR_MGMT,
 MAX31331_TRICKLE_REG,
+REG_NOT_AVAILABLE,
 MAX31331_OFFSET_HIGH,
 MAX31331_OFFSET_LOW,
+REG_NOT_AVAILABLE,
+REG_NOT_AVAILABLE,
+REG_NOT_AVAILABLE,
+REG_NOT_AVAILABLE,
+REG_NOT_AVAILABLE,
+REG_NOT_AVAILABLE,
+REG_NOT_AVAILABLE,
 MAX31331_TS0_SEC_1_128,
 MAX31331_TS0_SEC,
 MAX31331_TS0_MIN,

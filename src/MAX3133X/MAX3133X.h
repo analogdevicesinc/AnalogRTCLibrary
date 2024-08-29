@@ -228,6 +228,20 @@ public:
     int sw_reset();
 
     /**
+     * @brief EN_IO Configuration
+     *
+     * @details
+     *  - Register     : RTC_CONFIG1
+     *  - Bit Fields   : [6]
+     *  - Default      : 0x1
+     *  - Description  : Active-high enable DIN pin when running on VBAT
+    */
+    typedef enum{
+        DISABLE_DIN,
+        ENABLE_DIN
+    }en_io_t;
+	
+    /**
      * @brief Data retention mode enable/disable Configuration
      *
      * @details
@@ -681,6 +695,8 @@ protected:
     typedef struct {
         uint8_t     status_reg_addr;
         uint8_t     int_en_reg_addr;
+        uint8_t     status2_reg_addr;
+        uint8_t     int_en2_reg_addr;
         uint8_t     rtc_reset_reg_addr;
         uint8_t     rtc_config1_reg_addr;
         uint8_t     rtc_config2_reg_addr;
@@ -712,8 +728,16 @@ protected:
         uint8_t     timer_init1_reg_addr;
         uint8_t     pwr_mgmt_reg_addr;
         uint8_t     trickle_reg_addr;
+        uint8_t     aging_offset_reg_addr;
         uint8_t     offset_high_reg_addr;
         uint8_t     offset_low_reg_addr;
+        uint8_t     ts_config_reg_addr;
+        uint8_t     temp_alm_high_msb_reg_addr;
+        uint8_t     temp_alm_high_lsb_reg_addr;
+        uint8_t     temp_alm_low_msb_reg_addr;
+        uint8_t     temp_alm_low_lsb_reg_addr;
+        uint8_t     temp_data_msb_reg_addr;
+        uint8_t     temp_data_lsb_reg_addr;
         uint8_t     ts0_sec_1_128_reg_addr;
         uint8_t     ts0_sec_reg_addr;
         uint8_t     ts0_min_reg_addr;
@@ -813,6 +837,112 @@ private:
     };
 
     handler interrupt_handler_list[NUM_OF_INT];
+};
+
+/** MAX31335 Device Class
+*
+* Hold configurations for the MAX31335
+*/
+class MAX31335 : public MAX3133X
+{
+private:
+    static const reg_addr_t reg_addr;
+
+public:
+    typedef struct{
+        en_io_t         en_io;      /*RTC_CONFIG1 - DIN pin enable when running on VBAT*/
+        a1ac_t          a1ac;       /*RTC_CONFIG1 - Alarm1 Auto Clear */
+        dip_t           dip;        /*RTC_CONFIG1 - Digital (DIN) interrupt polarity */
+        data_ret_t      data_ret;   /*RTC_CONFIG1 - Data retention mode enable/disable. */
+        i2c_timeout_t   i2c_timeout;/*RTC_CONFIG1 - I2C timeout enable */
+        en_osc_t        en_osc;     /*RTC_CONFIG1 - Active-high enable for the crystal oscillator */
+        enclko_t        enclko;     /*RTC_CONFIG2 - CLKOUT enable */
+        clko_hz_t       clko_hz;    /*RTC_CONFIG2 - Set output clock frequency on INTBb/CLKOUT pin */
+    }rtc_config_t;
+
+    /**
+    * @brief        Configure the device
+    *
+    * @param[in]    max31335_config Device configuration
+    *
+    * @return       0 on success, error code on failure
+    *
+    * @note         RTC_CONFIG1 and RTC_CONFIG2 registers are set.
+    */
+    int rtc_config(rtc_config_t *max31335_config);
+
+    /**
+    * @brief        Get device configuration
+    *
+    * @param[out]   max31335_config Device configuration
+    *
+    * @return       0 on success, error code on failure
+    *
+    * @note         RTC_CONFIG1 and RTC_CONFIG2 register values are read.
+    */
+    int get_rtc_config(rtc_config_t *max31335_config);
+
+    /**
+    * @brief        Initialize timer
+    *
+    * @param[in]    init_val Timer initial value
+    * @param[in]    repeat Timer repeat mode enable/disable
+    * @param[in]    freq Timer frequency, one of TIMER_FREQ_*
+    *
+    * @return       0 on success, error code on failure
+    */
+    int timer_init(uint16_t init_val, bool repeat, timer_freq_t freq);
+
+    /**
+    * @brief    Read timer value
+    *
+    * @return   timer value on success, error code on failure
+    */
+    int timer_get();
+    /**
+     * @brief       Gets Status2 Register Value
+     *
+     * @param[in]   status_reg
+     *
+     * @returns     0 on success, negative error code on failure.
+     */
+    int get_status2_reg(max31335_status2_reg_t * status_reg);
+
+    /**
+     * @brief       Gets Interrupt Enable2 Register Value
+     *
+     * @param[in]   int_en_reg
+     *
+     * @returns     0 on success, negative error code on failure.
+     */
+    int get_interrupt2_reg(max31335_int_en2_reg_t * int_en_reg);
+    
+    /*Interrupt Enable1 Register Masks*/
+    #define UTF         0b00000001  /*Under Temperature interrupt mask*/
+    #define OTF         0b00000010  /*Over Temperature interrupt mask*/
+    #define TEMP_RDY    0b00000100  /*Temperature Ready interrupt mask*/
+    #define INT1_ALL    0b00000111  /*All Interrupts*/
+    #define NUM_OF_INT1 3           /*Number of Interrupts*/
+
+    /**
+     * @brief       Enables Interrupt1
+     *
+     * @param[in]   mask
+     *
+     * @returns     0 on success, negative error code on failure.
+     */
+    int interrupt2_enable(uint8_t mask);
+
+    /**
+     * @brief       Disables Interrupt1
+     *
+     * @param[in]   mask
+     *
+     * @returns     0 on success, negative error code on failure.
+     */
+    int interrupt2_disable(uint8_t mask);
+
+    MAX31335(TwoWire *i2c, uint8_t i2c_addr = MAX31335_I2C_ADDRESS) : MAX3133X(&reg_addr, i2c, i2c_addr) {}
 };
 
 /** MAX31334 Device Class
