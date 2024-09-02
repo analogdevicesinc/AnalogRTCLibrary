@@ -34,6 +34,7 @@
 #define MAX3133X_REGS_HPP_
 
 #define MAX3133X_I2C_ADDRESS    0x68
+#define MAX31335_I2C_ADDRESS    0x69
 #define REG_NOT_AVAILABLE       0xFF
 
 /**
@@ -54,7 +55,20 @@ typedef union {
 } max3133x_status_reg_t;
 
 /**
- * @brief ENT_EN Register
+ * @brief STATUS2 Register
+ */
+typedef union {
+    unsigned char raw;
+    struct {
+        unsigned char utf      : 1;
+        unsigned char otf      : 1;
+        unsigned char temp_rdy : 1;
+        unsigned char          : 5;
+    } bits;
+} max31335_status2_reg_t;
+
+/**
+ * @brief INT_EN Register
  */
 typedef union {
     unsigned char raw;
@@ -69,6 +83,19 @@ typedef union {
         unsigned char           : 1;
     } bits;
 } max3133x_int_en_reg_t;
+
+/**
+ * @brief INT_EN2 Register
+ */
+typedef union {
+    unsigned char raw;
+    struct {
+        unsigned char utie        : 1;
+        unsigned char otie        : 1;
+        unsigned char temp_rdy_en : 1;
+        unsigned char             : 5;
+    } bits;
+} max31335_int_en2_reg_t;
 
 /**
  * @brief RTC_RESET Register
@@ -97,6 +124,22 @@ typedef union {
 } max3133x_rtc_config1_reg_t;
 
 /**
+ * @brief RTC_CONFIG1 Register
+ */
+typedef union {
+    unsigned char raw;
+    struct {
+        unsigned char en_osc        : 1;
+        unsigned char i2c_timeout   : 1;
+        unsigned char data_ret      : 1;
+        unsigned char dip           : 1;
+        unsigned char a1ac          : 2;
+        unsigned char en_io         : 1;
+        unsigned char               : 1;
+    } bits;
+} max31335_rtc_config1_reg_t;
+
+/**
  * @brief RTC_CONFIG2 Register
  */
 typedef union {
@@ -122,6 +165,18 @@ typedef union {
         unsigned char slst      : 1;
     } bits;
 } max31334_rtc_config2_reg_t;
+
+/**
+ * @brief RTC_CONFIG2 Register
+ */
+typedef union {
+    unsigned char raw;
+    struct {
+        unsigned char clko_hz   : 2;
+        unsigned char enclko    : 1;
+        unsigned char           : 5;
+    } bits;
+} max31335_rtc_config2_reg_t;
 
 /**
  * @brief TIMESTAMP_CONFIG Register
@@ -468,6 +523,29 @@ typedef union {
 } max3133x_offset_low_reg_t;
 
 /**
+ * @brief AGING OFFSET Register
+ */
+typedef union {
+    unsigned char raw;
+    struct {
+        unsigned char offset;
+    } bits;
+} max31335_aging_offset_reg_t;
+
+/**
+ * @brief TS_CONFIG Register
+ */
+typedef union {
+    unsigned char raw;
+    struct {
+        unsigned char ts_init   : 3;
+        unsigned char convert_t : 1;
+        unsigned char auto_t    : 1;
+        unsigned char           : 3;
+    } bits;
+} max3133x_ts_config_reg_t;
+
+/**
  * @brief TS_FLAGS Register
  */
 typedef union {
@@ -649,6 +727,83 @@ enum max31334_register_address{
     MAX31334_TS3_YEAR           = 0x4E,
     MAX31334_TS3_FLAGS          = 0x4F,
     MAX31334_END
+};
+
+enum max31335_register_address{
+    /*RTC REG*/
+    MAX31335_STATUS             = 0x00,
+    MAX31335_INT_EN             = 0x01,
+    MAX31335_STATUS2            = 0x02,
+    MAX31335_INT_EN2            = 0x03,
+    MAX31335_RTC_RESET          = 0x04,
+    MAX31335_RTC_CONFIG1        = 0x05,
+    MAX31335_RTC_CONFIG2        = 0x06,
+    MAX31335_TIMESTAMP_CONFIG   = 0x07,
+    MAX31335_TIMER_CONFIG       = 0x08,
+    MAX31335_SECONDS_1_128      = 0x09,
+    MAX31335_SECONDS            = 0x0A,
+    MAX31335_MINUTES            = 0x0B,
+    MAX31335_HOURS              = 0x0C,
+    MAX31335_DAY                = 0x0D,
+    MAX31335_DATE               = 0x0E,
+    MAX31335_MONTH              = 0x0F,
+    MAX31335_YEAR               = 0x10,
+    MAX31335_ALM1_SEC           = 0x11,
+    MAX31335_ALM1_MIN           = 0x12,
+    MAX31335_ALM1_HRS           = 0x13,
+    MAX31335_ALM1_DAY_DATE      = 0x14,
+    MAX31335_ALM1_MON           = 0x15,
+    MAX31335_ALM1_YEAR          = 0x16,
+    MAX31335_ALM2_MIN           = 0x17,
+    MAX31335_ALM2_HRS           = 0x18,
+    MAX31335_ALM2_DAY_DATE      = 0x19,
+    MAX31335_TIMER_COUNT        = 0x1A,
+    MAX31335_TIMER_INIT         = 0x1B,
+    MAX31335_PWR_MGMT           = 0x1C,
+    MAX31335_TRICKLE_REG        = 0x1D,
+    MAX31335_AGING_OFFSET       = 0x1E,
+    /* TEMP_REG */
+    MAX31335_TS_CONFIG          = 0x30,
+    MAX31335_TEMP_ALM_HIGH_MSB  = 0x31,
+    MAX31335_TEMP_ALM_HIGH_LSB  = 0x32,
+    MAX31335_TEMP_ALM_LOW_MSB   = 0x33,
+    MAX31335_TEMP_ALM_LOW_LSB   = 0x34,
+    MAX31335_TEMP_DATA_MSB      = 0x35,
+    MAX31335_TEMP_DATA_LSB      = 0x36,
+    /*TS_RAM_REG*/
+    MAX31335_TS0_SEC_1_128      = 0x40,
+    MAX31335_TS0_SEC            = 0x41,
+    MAX31335_TS0_MIN            = 0x42,
+    MAX31335_TS0_HOUR           = 0x43,
+    MAX31335_TS0_DATE           = 0x44,
+    MAX31335_TS0_MONTH          = 0x45,
+    MAX31335_TS0_YEAR           = 0x46,
+    MAX31335_TS0_FLAGS          = 0x47,
+    MAX31335_TS1_SEC_1_128      = 0x48,
+    MAX31335_TS1_SEC            = 0x49,
+    MAX31335_TS1_MIN            = 0x4A,
+    MAX31335_TS1_HOUR           = 0x4B,
+    MAX31335_TS1_DATE           = 0x4C,
+    MAX31335_TS1_MONTH          = 0x4D,
+    MAX31335_TS1_YEAR           = 0x4E,
+    MAX31335_TS1_FLAGS          = 0x4F,
+    MAX31335_TS2_SEC_1_128      = 0x50,
+    MAX31335_TS2_SEC            = 0x51,
+    MAX31335_TS2_MIN            = 0x52,
+    MAX31335_TS2_HOUR           = 0x53,
+    MAX31335_TS2_DATE           = 0x54,
+    MAX31335_TS2_MONTH          = 0x55,
+    MAX31335_TS2_YEAR           = 0x56,
+    MAX31335_TS2_FLAGS          = 0x57,
+    MAX31335_TS3_SEC_1_128      = 0x58,
+    MAX31335_TS3_SEC            = 0x59,
+    MAX31335_TS3_MIN            = 0x5A,
+    MAX31335_TS3_HOUR           = 0x5B,
+    MAX31335_TS3_DATE           = 0x5C,
+    MAX31335_TS3_MONTH          = 0x5D,
+    MAX31335_TS3_YEAR           = 0x5E,
+    MAX31335_TS3_FLAGS          = 0x5F,
+    MAX31335_END
 };
 
 #endif /* MAX3133X_REGS_HPP_ */
