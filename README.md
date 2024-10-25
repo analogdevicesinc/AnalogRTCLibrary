@@ -6,6 +6,7 @@ Supported part numbers:
 - [MAX31331](https://www.maximintegrated.com/en/products/analog/MAX31331.html)
 - [MAX31334](https://www.maximintegrated.com/en/products/analog/MAX31334.html)
 - [MAX31328](https://www.maximintegrated.com/en/products/analog/real-time-clocks/MAX31328.html)
+- [MAX31329](https://www.maximintegrated.com/en/products/analog/real-time-clocks/MAX31329.html)
 - [MAX31341](https://www.maximintegrated.com/en/products/analog/real-time-clocks/MAX31341B.html)
 - [MAX31343](https://www.maximintegrated.com/en/products/analog/real-time-clocks/MAX31343.html)
 

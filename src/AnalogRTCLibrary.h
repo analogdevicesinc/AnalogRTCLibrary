@@ -42,5 +42,7 @@
 
 #include "MAX3133X/MAX3133X.h"
 
+#include "MAX31329/MAX31329.h"
+
 
 #endif /* _ANALOG_RTC_LIB_ */
