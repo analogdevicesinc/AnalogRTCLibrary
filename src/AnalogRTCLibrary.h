@@ -38,9 +38,13 @@
 
 #include "MAX31341/MAX31341.h"
 
+#include "MAX31342/MAX31342.h"
+
 #include "MAX31343/MAX31343.h"
 
 #include "MAX3133X/MAX3133X.h"
+
+#include "MAX31329/MAX31329.h"
 
 
 #endif /* _ANALOG_RTC_LIB_ */
